@@ -1,0 +1,28 @@
+{#
+{{dump(authors)}}
+#}
+{% for author in authors %}
+{{author.id}}
+{{author.username}}
+{{author.nb_books}}
+<a href="{{path('det',{'t':author.id})}}">detail</a>
+{%else%}
+le tableau egeg
+{% endfor %}
+<hr>
+{% if authors is not empty %}
+le tableau
+{%endif%}
+
+{% if authors is  defined %}
+le define
+{%endif%}
+nb authors:{{authors|length}}
+<br>
+
+{% set s=0%}
+{% for author in authors %}
+{% set s=s+author.nb_books %}
+
+{% endfor %}
+nb books={{s}}
