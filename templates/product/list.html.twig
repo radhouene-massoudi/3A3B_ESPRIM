@@ -1,0 +1,19 @@
+
+<table>
+<tr>
+    <td>id</td>
+       <td>name</td>
+          <td>created AT</td>
+             <td>action</td>
+</tr>
+{% for result in results%}
+<tr>
+    
+<td> {{result.id}}</td>
+       <td>{{result.name}}</td>
+          <td>{{result.createdAt |date('y-m-d')}}</td>
+             <td><a href="{{path('d',{r:result.id})}}">detail</a></td>
+             
+</tr> 
+{%endfor%}
+</table>
