@@ -77,7 +77,10 @@ return $this->render('product/detail.html.twig',[
         $form=$this->createForm(ProductType::class,$p);
         $form->handleRequest($req);
         $em=$mr->getManager();
+        
         if($form->isSubmitted()){
+           // dd($req);
+           $p->setCreatedAt( new DateTimeImmutable('now'));
 $em->persist($p);
         $em->flush();
         return $this->redirectToRoute('l');
@@ -87,5 +90,51 @@ $em->persist($p);
         ]);
 
 
+    }
+
+    #[Route('/update/{idofupdate}', name: 'update')]
+    public function updateProduct(ManagerRegistry $mr,
+    Request $req,ProductRepository $repo,
+    $idofupdate)
+    {
+        $p=$repo->find($idofupdate);
+        if($p==null){
+return new Response("id n'esxiste pas");
+        }
+        else{
+  $form=$this->createForm(ProductType::class,$p);
+        $form->handleRequest($req);
+        $em=$mr->getManager();
+                if($form->isSubmitted()){
+           // dd($req);
+           $p->setCreatedAt( new DateTimeImmutable('now'));
+//$em->persist($p);
+        $em->flush();
+        return $this->redirectToRoute('l');
+        }
+        return $this->render('product/addproduct.html.twig',[
+          'f'=>$form  
+        ]);
+        }
+      
+
+
+    }
+
+    #[Route('/remove/{id}', name: 'remove')]
+    public function removeProduct(ManagerRegistry $mr,
+        $id){
+        $em=$mr->getManager();
+        $repo=$em->getRepository(Product::class);
+        $p=$repo->find($id);
+        if($p!=null){
+$em->remove($p);
+        $em->flush();
+        return $this->redirectToRoute('l');
+
+        }else{
+            return new Response('fvsdhfs');
+        }
+        
     }
 }

@@ -14,9 +14,7 @@ class ProductType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('createdAt', null, [
-                'widget' => 'single_text',
-            ])
+           
             ->add('description')
             ->add('save',SubmitType::class)
 

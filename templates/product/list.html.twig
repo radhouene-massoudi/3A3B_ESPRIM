@@ -12,7 +12,11 @@
 <td> {{result.id}}</td>
        <td>{{result.name}}</td>
           <td>{{result.createdAt |date('y-m-d')}}</td>
-             <td><a href="{{path('d',{r:result.id})}}">detail</a></td>
+             <td>
+               <a href="{{path('d',{r:result.id})}}">detail</a>
+               <a href="{{path('remove',{id:result.id})}}">remove</a>
+                <a href="{{path('update',{idofupdate:result.id})}}">update</a>
+            </td>
              
 </tr> 
 {%endfor%}
