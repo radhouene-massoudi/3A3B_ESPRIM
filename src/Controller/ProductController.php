@@ -7,6 +7,7 @@ use App\Form\ProductType;
 use App\Repository\ProductRepository;
 use Symfony\Component\HttpFoundation\Request;
 use DateTimeImmutable;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,7 +32,7 @@ final class ProductController extends AbstractController
             'controller_name' => 'ProductController',
         ]);
     }
-    #[Route('/l', name: 'l')]
+    #[Route('', name: 'l')]
     public function lists(ManagerRegistry $mr): Response
     {
 
@@ -137,4 +138,11 @@ $em->remove($p);
         }
         
     }
+ #[Route('/dql', name: 'dql')]
+    public function dql(EntityManagerInterface $em,){
+        $dql=$em->createQuery("select count(p) from App\Entity\Product p");
+       $sql= $dql->getResult();
+       dd($sql);
+    }
+     
 }

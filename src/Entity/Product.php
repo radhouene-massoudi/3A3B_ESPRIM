@@ -22,6 +22,9 @@ class Product
     #[ORM\Column(length: 255)]
     private ?string $description = null;
 
+    #[ORM\ManyToOne(inversedBy: 'products')]
+    private ?Cat $cat_product = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -62,4 +65,17 @@ class Product
 
         return $this;
     }
+
+    public function getCatProduct(): ?Cat
+    {
+        return $this->cat_product;
+    }
+
+    public function setCatProduct(?Cat $cat_product): static
+    {
+        $this->cat_product = $cat_product;
+
+        return $this;
+    }
+    
 }
