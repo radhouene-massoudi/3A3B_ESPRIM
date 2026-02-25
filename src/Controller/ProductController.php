@@ -26,7 +26,8 @@ final class ProductController extends AbstractController
     #[Route('/list', name: 'list')]
     public function list(ProductRepository $repo): Response
     {
-        $l=$repo->findAll();
+        dd($repo->myfindall('phone'));
+        $l=$repo->myfindall('phone');
         dd($l);
         return $this->render('product/index.html.twig', [
             'controller_name' => 'ProductController',
@@ -140,7 +141,8 @@ $em->remove($p);
     }
  #[Route('/dql', name: 'dql')]
     public function dql(EntityManagerInterface $em,){
-        $dql=$em->createQuery("select count(p) from App\Entity\Product p");
+        $dql=$em->createQuery("select p.name ,c.name t from App\Entity\Product p JOIN p.cat_product c where c.name=?1 ");
+        $dql->setParameter('1','phone');
        $sql= $dql->getResult();
        dd($sql);
     }

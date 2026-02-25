@@ -40,4 +40,16 @@ class ProductRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+
+    public function myfindall($search){
+        return $this->createQueryBuilder('t')
+        ->select('t.name')
+        ->addSelect('c.name h')
+        ->join('t.cat_product','c')
+        ->where("c.name=:y")
+        ->setParameter('y',$search)
+         ->getQuery()
+         ->getSQL();
+
+    }
 }
